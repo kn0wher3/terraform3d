@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cj-demo
+spec:
+  schedule: "*/2 * * * *"  
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 30
+      template: 
+        spec:
+          containers:
+          - name: ubuntu-demo
+            image: ubuntu:22.04
+            args:
+            - /bin/sh
+            - -c
+            - echo Welcome to CronJob batch operation
+          restartPolicy: OnFailure  
